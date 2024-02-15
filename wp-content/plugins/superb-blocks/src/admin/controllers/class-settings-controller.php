@@ -16,7 +16,7 @@ use SuperbAddons\Data\Controllers\LogController;
 use SuperbAddons\Data\Utils\KeyException;
 use SuperbAddons\Data\Utils\PluginInstaller;
 use SuperbAddons\Data\Utils\SettingsException;
-
+use SuperbAddons\Gutenberg\Controllers\GutenbergEnhancementsController;
 
 class SettingsController
 {
@@ -61,6 +61,11 @@ class SettingsController
             case 'clear_logs':
             case 'view_logs':
                 return $this->SaveSettingsCallback($request['action']);
+            case GutenbergEnhancementsController::HIGHLIGHTS_KEY:
+            case GutenbergEnhancementsController::HIGHLIGHTS_QUICKOPTIONS_KEY:
+            case GutenbergEnhancementsController::HIGHLIGHTS_QUICKOPTIONS_BOTTOM_KEY:
+            case GutenbergEnhancementsController::HIDERS_KEY:
+                return GutenbergEnhancementsController::OptionsSaveCallback($request);
             case CompatibilitySettingsOptionKey::SPECTRA_BLOCK_SPACING:
                 return $this->SaveCompatibilitySettingsCallback($request['action']);
             default:
@@ -118,7 +123,7 @@ class SettingsController
 
             $installed = PluginInstaller::Install('elementor');
             if (!$installed) {
-                return rest_ensure_response(['success' => false, "text" => esc_html__('An error occured. Elementor could not be installed.', "superb-blocks")]);
+                return rest_ensure_response(['success' => false, "text" => esc_html__('An error occurred. Elementor could not be installed.', "superb-blocks")]);
             }
 
             return rest_ensure_response(['success' => true]);

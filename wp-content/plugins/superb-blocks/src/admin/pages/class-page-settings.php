@@ -6,6 +6,7 @@ defined('ABSPATH') || exit();
 
 use SuperbAddons\Admin\Controllers\DashboardController;
 use SuperbAddons\Admin\Controllers\SettingsController;
+use SuperbAddons\Components\Admin\EnhancementSettingsComponent;
 use SuperbAddons\Components\Admin\InputCheckbox;
 use SuperbAddons\Components\Admin\Modal;
 use SuperbAddons\Components\Admin\PremiumBoxLarge;
@@ -72,33 +73,41 @@ class SettingsPage
                         <img class="spbaddons-spinner" src="<?= SUPERBADDONS_ASSETS_PATH ?>/img/blocks-spinner.svg" />
                     </div>
                 </div>
+                <div class="superbaddons-editor-settings-wrapper">
+                    <?php new EnhancementSettingsComponent(); ?>
+                </div>
                 <div class="superbaddons-additional-content-wrapper">
-                    <h4 class="superbaddons-element-text-sm superbaddons-element-text-dark superbaddons-element-text-800 superbaddons-element-m0"><?= esc_html__("Settings", "superb-blocks"); ?></h4>
-                    <p class="superbaddons-element-text-xs superbaddons-element-text-gray "><?= esc_html__("Manage your settings for Superb Addons.", "superb-blocks"); ?></p>
+                    <h4 class="superbaddons-element-text-sm superbaddons-element-text-dark superbaddons-element-text-800 superbaddons-element-m0"><?= esc_html__("Advanced Settings", "superb-blocks"); ?></h4>
+                    <p class="superbaddons-element-text-xs superbaddons-element-text-gray "><?= esc_html__("Manage your advanced settings for Superb Addons.", "superb-blocks"); ?></p>
 
-                    <!-- Cache Settings -->
-                    <h5 class="superbaddons-element-flex-center superbaddons-element-text-xs superbaddons-element-text-dark superbaddons-element-text-800 superbaddons-element-m0"><img class="superbaddons-admindashboard-content-icon superbaddons-element-mr1" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/purple-database.svg'); ?>" /><?= esc_html__("Cache", "superb-blocks"); ?></h5>
-                    <p class="superbaddons-element-text-xxs superbaddons-element-text-gray superbaddons-element-mb1"><?= esc_html__("Superb Addons caches data for faster loading and processing. Clearing the cache will force data and images to be refreshed and reloaded. If you are not experiencing any problems with the plugin, the cache should not be cleared.", "superb-blocks"); ?></p>
-                    <button type="button" class="superbaddons-element-button spbaddons-admin-btn-danger superbaddons-element-m0 superbaddons-element-mb1" id="superbaddons-clear-cache-btn"><img class="superbaddons-element-button-icon" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/trash-light.svg'); ?>" /><?= esc_html__("Clear Cache", "superb-blocks"); ?></button>
+                    <div class="superbaddons-cache-settings-wrapper">
+                        <!-- Cache Settings -->
+                        <h5 class="superbaddons-element-flex-center superbaddons-element-text-xs superbaddons-element-text-dark superbaddons-element-text-800 superbaddons-element-m0"><img class="superbaddons-admindashboard-content-icon superbaddons-element-mr1" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/purple-database.svg'); ?>" /><?= esc_html__("Cache", "superb-blocks"); ?></h5>
+                        <p class="superbaddons-element-text-xxs superbaddons-element-text-gray superbaddons-element-mb1"><?= esc_html__("Superb Addons caches data for faster loading and processing. Clearing the cache will force data and images to be refreshed and reloaded. If you are not experiencing any problems with the plugin, the cache should not be cleared.", "superb-blocks"); ?></p>
+                        <button type="button" class="superbaddons-element-button spbaddons-admin-btn-danger superbaddons-element-m0 superbaddons-element-mb1" id="superbaddons-clear-cache-btn"><img class="superbaddons-element-button-icon" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/trash-light.svg'); ?>" /><?= esc_html__("Clear Cache", "superb-blocks"); ?></button>
+                    </div>
                     <div class="superbaddons-element-separator"></div>
 
-                    <!-- Error Logs Settings -->
-                    <h5 class="superbaddons-element-flex-center superbaddons-element-text-xs superbaddons-element-text-dark superbaddons-element-text-800 superbaddons-element-mb1"><img class="superbaddons-admindashboard-content-icon superbaddons-element-mr1" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/purple-bug.svg'); ?>" /><?= esc_html__("Error Logs", "superb-blocks"); ?></h5>
-                    <?php new InputCheckbox('superbaddons-enable-logs-input', SettingsOptionKey::LOGS_ENABLED, __("Enable Error Logs", "superb-blocks"), __("If issues or errors occur in the plugin when this setting is enabled, the error messages will be logged and can be viewed and shared with our support team and developers.", "superb-blocks"), $this->Settings[SettingsOptionKey::LOGS_ENABLED]); ?>
-                    <div class="superbaddons-maybe-hide-element" <?= $this->Settings[SettingsOptionKey::LOGS_ENABLED] ? '' : 'style="display:none;"'; ?>>
-                        <?php new InputCheckbox('superbaddons-share-logs-input', SettingsOptionKey::LOG_SHARE_ENABLED, __("Share Error Logs", "superb-blocks"), __("When this setting is enabled, error logs will be shared anonymously with our support team and developers to help improve the plugin. Only the error messages shown in the error logs will be shared.", "superb-blocks"), $this->Settings[SettingsOptionKey::LOG_SHARE_ENABLED], '/img/cloud-arrow-up.svg'); ?>
+                    <div class="superbaddons-error-logs-settings-wrapper">
+                        <!-- Error Logs Settings -->
+                        <h5 class="superbaddons-element-flex-center superbaddons-element-text-xs superbaddons-element-text-dark superbaddons-element-text-800 superbaddons-element-mb1"><img class="superbaddons-admindashboard-content-icon superbaddons-element-mr1" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/purple-bug.svg'); ?>" /><?= esc_html__("Error Logs", "superb-blocks"); ?></h5>
+                        <?php new InputCheckbox('superbaddons-enable-logs-input', SettingsOptionKey::LOGS_ENABLED, __("Enable Error Logs", "superb-blocks"), __("If issues or errors occur in the plugin when this setting is enabled, the error messages will be logged and can be viewed and shared with our support team and developers.", "superb-blocks"), $this->Settings[SettingsOptionKey::LOGS_ENABLED]); ?>
+                        <div class="superbaddons-maybe-hide-element" <?= $this->Settings[SettingsOptionKey::LOGS_ENABLED] ? '' : 'style="display:none;"'; ?>>
+                            <?php new InputCheckbox('superbaddons-share-logs-input', SettingsOptionKey::LOG_SHARE_ENABLED, __("Share Error Logs", "superb-blocks"), __("When this setting is enabled, error logs will be shared anonymously with our support team and developers to help improve the plugin. Only the error messages shown in the error logs will be shared.", "superb-blocks"), $this->Settings[SettingsOptionKey::LOG_SHARE_ENABLED], '/img/cloud-arrow-up.svg'); ?>
+                        </div>
+                        <button type="button" class="superbaddons-element-button superbaddons-element-mr1" id="superbaddons-view-logs-btn"><img class="superbaddons-element-button-icon" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/list-magnifying-glass.svg'); ?>" /><?= esc_html__("View Logs", "superb-blocks"); ?></button>
+                        <button type="button" class="superbaddons-element-button spbaddons-admin-btn-danger" id="superbaddons-clear-logs-btn"><img class="superbaddons-element-button-icon" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/trash-light.svg'); ?>" /><?= esc_html__("Clear Logs", "superb-blocks"); ?></button>
                     </div>
-                    <button type="button" class="superbaddons-element-button superbaddons-element-mr1" id="superbaddons-view-logs-btn"><img class="superbaddons-element-button-icon" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/list-magnifying-glass.svg'); ?>" /><?= esc_html__("View Logs", "superb-blocks"); ?></button>
-                    <button type="button" class="superbaddons-element-button spbaddons-admin-btn-danger" id="superbaddons-clear-logs-btn"><img class="superbaddons-element-button-icon" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/trash-light.svg'); ?>" /><?= esc_html__("Clear Logs", "superb-blocks"); ?></button>
-
-                    <!-- Compatibility Settings -->
-                    <?php if (count($this->Incompatibilities) > 0) : ?>
-                        <div class="superbaddons-element-separator"></div>
-                        <h5 class="superbaddons-element-flex-center superbaddons-element-text-xs superbaddons-element-text-dark superbaddons-element-text-800 superbaddons-element-mb1"><img class="superbaddons-admindashboard-content-icon superbaddons-element-mr1" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/purple-plugs.svg'); ?>" /><?= esc_html__("Compatibility", "superb-blocks"); ?></h5>
-                        <?php if (isset($this->Incompatibilities[CompatibilitySettingsOptionKey::SPECTRA_BLOCK_SPACING])) :
-                            new InputCheckbox('superbaddons-spectra-compat', CompatibilitySettingsOptionKey::SPECTRA_BLOCK_SPACING, __("Fix Block Spacing", "superb-blocks"), __("The Spectra plugin features an option to apply a fixed block spacing between all blocks while in the editor. Unfortunately this option overrides custom block spacing and can result in blocks and patterns appearing strange in the editor. When this setting is enabled, custom block spacing will appear correctly in the editor.", "superb-blocks"), $this->CompatibilitySettings[CompatibilitySettingsOptionKey::SPECTRA_BLOCK_SPACING]);
-                        endif; ?>
-                    <?php endif; ?>
+                    <div class="superbaddons-compatibility-settings-wrapper">
+                        <!-- Compatibility Settings -->
+                        <?php if (count($this->Incompatibilities) > 0) : ?>
+                            <div class="superbaddons-element-separator"></div>
+                            <h5 class="superbaddons-element-flex-center superbaddons-element-text-xs superbaddons-element-text-dark superbaddons-element-text-800 superbaddons-element-mb1"><img class="superbaddons-admindashboard-content-icon superbaddons-element-mr1" src="<?= esc_url(SUPERBADDONS_ASSETS_PATH . '/img/purple-plugs.svg'); ?>" /><?= esc_html__("Compatibility", "superb-blocks"); ?></h5>
+                            <?php if (isset($this->Incompatibilities[CompatibilitySettingsOptionKey::SPECTRA_BLOCK_SPACING])) :
+                                new InputCheckbox('superbaddons-spectra-compat', CompatibilitySettingsOptionKey::SPECTRA_BLOCK_SPACING, __("Fix Block Spacing", "superb-blocks"), __("The Spectra plugin features an option to apply a fixed block spacing between all blocks while in the editor. Unfortunately this option overrides custom block spacing and can result in blocks and patterns appearing strange in the editor. When this setting is enabled, custom block spacing will appear correctly in the editor.", "superb-blocks"), $this->CompatibilitySettings[CompatibilitySettingsOptionKey::SPECTRA_BLOCK_SPACING]);
+                            endif; ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <div class="superbaddons-admindashboard-linkbox-wrapper">
                     <?php new SupportLinkBoxes(); ?>

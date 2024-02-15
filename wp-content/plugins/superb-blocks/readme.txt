@@ -4,7 +4,7 @@ Tags: blocks, block, gutenberg blocks, wordpress blocks, block editor, page buil
 Requires at least: 3.0.1
 Tested up to: 6.4
 Requires PHP: 6.0
-Stable tag: 3.1.3
+Stable tag: 3.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,16 +36,22 @@ Add 500+ Sections, Blocks, Patterns & Elements To The WordPress Editor & Element
     <li><strong>Recent Posts With Images Block</strong></li>
     <li><strong>Cover Image Block</strong></li>
     <li><strong>Google Maps Block</strong></li>
+    <li><strong>Animated Heading Block</strong></li>
 </ul>
 
 ## Gutenberg / WordPress Editor Section Categories
 <ul>
-    <li><strong>4 Hero Patterns</strong></li>
-    <li><strong>4 Call To Action Patterns</strong></li>
-    <li><strong>4 Content Patterns</strong></li>
-    <li><strong>6 Contact Patterns</strong></li>
-    <li><strong>4 Feature Patterns</strong></li>
-    <li><strong>2 Navigation Patterns</strong></li>
+    <li><strong>4+ Hero Patterns</strong></li>
+    <li><strong>4+ Call To Action Patterns</strong></li>
+    <li><strong>4+ Content Patterns</strong></li>
+    <li><strong>6+ Contact Patterns</strong></li>
+    <li><strong>4+ Feature Patterns</strong></li>
+    <li><strong>3+ Navigation Patterns</strong></li>
+    <li><strong>3+ Testimonial Patterns</strong></li>
+    <li><strong>2+ Stats Patterns</strong></li>
+    <li><strong>1+ Social Patterns</strong></li>
+    <li><strong>1+ Four-o-Four Patterns</strong></li>
+    <li><strong>1+ Footer Patterns</strong></li>
 </ul>
 
 ## Elementor Sections, Blocks & Widgets
@@ -208,6 +214,14 @@ With our user-friendly website builder, you'll have your site up and running in 
 3. Elementor Sections
 
 == Changelog ==
+= 3.2.1 =
+* Minor bugfix for editor issue that could occur on some installations.
+
+= 3.2.0 =
+* Bugfixes.
+* Added hide block settings.
+* Added block editor highlights.
+
 = 3.1.3 =
 * Minor bugfix.
 

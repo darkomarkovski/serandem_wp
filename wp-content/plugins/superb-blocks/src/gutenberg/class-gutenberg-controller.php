@@ -38,8 +38,8 @@ class GutenbergController
         add_action('init', array($this, 'RegisterBlocks'), 0);
         add_action('enqueue_block_editor_assets', array($this, 'EnqueueBlockEditorAssets'));
 
-
         add_action("enqueue_block_assets", array($this, 'EnqueueEditorIframeAssets'));
+        GutenbergEnhancementsController::Initialize();
     }
 
     public static function is_compatible()
@@ -92,22 +92,32 @@ class GutenbergController
                 array(),
                 SUPERBADDONS_VERSION
             );
+            // Enhancements
+            wp_enqueue_style(
+                'superb-addons-editor-enhancements',
+                SUPERBADDONS_ASSETS_PATH . '/css/editor-enhancements.min.css',
+                array(),
+                SUPERBADDONS_VERSION
+            );
         }
     }
 
     public function EnqueueBlockEditorAssets()
     {
-        $this->AddonsLibrary();
+        self::AddonsLibrary();
+        self::EditorEnhancements();
         wp_enqueue_script(
             'superb-addons-gutenberg-library',
             SUPERBADDONS_ASSETS_PATH . '/js/gutenberg/pattern-library.js',
-            array(),
+            array("wp-plugins", "wp-hooks", "wp-data", "wp-element", "wp-i18n", "wp-components", "wp-compose", "wp-blocks", "wp-editor"),
             SUPERBADDONS_VERSION
         );
         wp_localize_script('superb-addons-gutenberg-library', 'superblayoutlibrary_g', array(
             "style_placeholder" => esc_html__('All themes', "superb-blocks"),
             "category_placeholder" => esc_html__('All categories', "superb-blocks"),
             "snacks" => array(
+                "settings_save_message" => esc_html__("Settings saved successfully.", "superb-blocks"),
+                "settings_save_error" => esc_html__("Something went wrong while attempting to save your settings. Please try again or contact support if the problem persists.", "superb-blocks"),
                 "insert_error" => esc_html__('Something went wrong while attempting to insert this element. Please try again or contact support if the problem persists.', "superb-blocks"),
                 "list_error" => esc_html__('Something went wrong while attempting to list elements. Please try again or contact support if the problem persists.', "superb-blocks")
             ),
@@ -164,6 +174,16 @@ class GutenbergController
             true
         );
 
+        // Enhancements
+        wp_enqueue_style(
+            'superb-addons-editor-enhancements',
+            SUPERBADDONS_ASSETS_PATH . '/css/editor-enhancements.min.css',
+            array(),
+            SUPERBADDONS_VERSION
+        );
+
+        /// Compatibility
+
         if (SettingsController::IsCompatibilitySettingRelevantAndEnabled(CompatibilitySettingsOptionKey::SPECTRA_BLOCK_SPACING)) {
             wp_enqueue_script(
                 'superb-addons-block-spacing-compatibility-fix',
@@ -197,6 +217,16 @@ class GutenbergController
             }
             register_block_type(SUPERBADDONS_PLUGIN_DIR . 'blocks/' . $block['path'], $block['args']);
         }
+    }
+
+    private static function EditorEnhancements()
+    {
+        add_action('admin_footer', function () {
+            ob_start();
+            include(SUPERBADDONS_PLUGIN_DIR . 'src/gutenberg/templates/block-quick-options.php');
+            $template = ob_get_clean();
+            echo '<script type="text/template" id="tmpl-gutenberg-superb-block-quick-options">' . $template . '</script>';
+        });
     }
 
     public static function AddonsLibrary()

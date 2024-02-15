@@ -63,7 +63,7 @@ class KeyController
             throw $k_ex;
         } catch (Exception $ex) {
             LogController::HandleException($ex);
-            throw new KeyException(__("Internal Error Occured During License Key Registration", "superb-blocks"));
+            throw new KeyException(__("Internal Error Occurred During License Key Registration", "superb-blocks"));
         }
     }
 
