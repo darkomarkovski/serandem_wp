@@ -3,7 +3,7 @@ version: "3"
 services:
   # Services line define which Docker images to run. In this case, it will be MySQL server and WordPress image.
   db:
-    platform: linux/arm64/v8
+    platform: linux/x86_64
     image: mysql:5.7
     # image: mysql:5.7 indicates the MySQL database container image from Docker Hub used in this installation.
     restart: always
@@ -14,7 +14,7 @@ services:
       MYSQL_PASSWORD: Pa$$5w0rD
       # Previous four lines define the main variables needed for the MySQL container to work: database, database username, database user password, and the MySQL root password.
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:arm64v8
+    image: phpmyadmin
     restart: always
     environment:
       PMA_HOST: db
